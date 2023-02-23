@@ -1,0 +1,204 @@
+package com.example.app10;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+
+public class MainActivity extends Activity {
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+Button btnSDown = (Button)findViewById(R.id.btnSlideDown);
+Button btnSUp = (Button)findViewById(R.id.btnSlideUp);
+Button zoomin= (Button)findViewById(R.id.zoomin);
+Button zoomout=(Button)findViewById(R.id.zoomout);
+ImageView img = (ImageView)findViewById(R.id.imgvw);
+btnSDown.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+Animation animSlideDown =
+AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_down);
+img.startAnimation(animSlideDown);
+}
+});
+btnSUp.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+Animation animSlideUp =
+AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_up);
+img.startAnimation(animSlideUp);
+}
+});
+zoomin.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+Animation animzoomin =
+AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
+img.startAnimation(animzoomin);
+}
+});
+zoomout.setOnClickListener(new View.OnClickListener() { @Override
+public void onClick(View v) {
+Animation animzoomout =
+AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_out);
+img.startAnimation(animzoomout);
+}
+});
+}
+}
+
+
+
+
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingLeft="10dp"
+android:paddingRight="10dp">
+
+<Button
+android:id="@+id/btnSlideDown"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_below="@+id/imgvw"
+android:layout_alignParentEnd="true"
+android:layout_alignParentRight="true"
+android:layout_marginLeft="100dp"
+android:layout_marginTop="171dp"
+android:layout_marginEnd="200dp"
+android:layout_marginRight="200dp"
+android:text="Slide Down" />
+<Button
+android:id="@+id/btnSlideUp"
+android:layout_width="111dp"
+android:layout_height="44dp"
+android:layout_alignBottom="@+id/btnSlideDown"
+android:layout_alignParentStart="true"
+android:layout_alignParentLeft="true"
+android:layout_alignParentTop="true"
+android:layout_marginStart="231dp"
+android:layout_marginLeft="231dp"
+android:layout_marginTop="427dp"
+android:layout_marginBottom="4dp"
+android:text="Slide Up" />
+<Button
+android:id="@+id/zoomin"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentEnd="true"
+android:layout_alignParentRight="true"
+android:layout_alignParentBottom="true"
+android:layout_marginEnd="69dp"
+android:layout_marginRight="69dp"
+android:layout_marginBottom="205dp"
+android:text="zoomin" />
+<Button
+android:id="@+id/zoomout"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentEnd="true"
+android:layout_alignParentRight="true"
+android:layout_alignParentBottom="true"
+android:layout_marginEnd="201dp"
+android:layout_marginRight="201dp"
+android:layout_marginBottom="201dp"
+android:text="zoomout" />
+<ImageView
+android:id="@+id/imgvw"
+android:layout_width="401dp"
+android:layout_height="256dp"
+android:src="@drawable/blueflower" />
+</RelativeLayout>
+
+
+
+
+
+AndroidMainfest.xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.example.app10">
+<application
+android:allowBackup="true"
+android:icon="@mipmap/ic_launcher"
+android:label="@string/app_name"
+android:roundIcon="@mipmap/ic_launcher_round"
+android:supportsRtl="true"
+android:theme="@style/Theme.App10">
+<activity
+android:name=".MainActivity"
+android:exported="true">
+<intent-filter>
+<action android:name="android.intent.action.MAIN" />
+<category android:name="android.intent.category.LAUNCHER" /> </intent-filter>
+</activity>
+</application>
+</manifest>
+
+
+
+
+slide_down.xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+android:interpolator="@android:anim/linear_interpolator"> <scale
+android:duration="500"
+android:fromXScale="1.0"
+android:fromYScale="0.0"
+android:toXScale="1.0"
+android:toYScale="1.0" />
+</set>
+
+
+
+
+slide_up.xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+android:interpolator="@android:anim/linear_interpolator"> <scale
+android:duration="500"
+android:fromXScale="1.0"
+android:fromYScale="1.0"
+android:toXScale="1.0"
+android:toYScale="0.0" />
+</set>
+
+
+
+
+zoom_up.xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"> <scale
+android:duration="500"
+android:fromXScale="1"
+android:fromYScale="1"
+android:pivotX="50%"
+android:pivotY="50%"
+android:toXScale="2"
+android:toYScale="2" >
+</scale>
+
+</set>
+
+
+
+
+zoom_out.xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"> <scale
+android:duration="500"
+android:fromXScale="1"
+android:fromYScale="1"
+android:pivotX="50%"
+android:pivotY="50%"
+android:toXScale="0.1"
+android:toYScale="0.1" />
+</set>
