@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/rl"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:padding="10dp"
+tools:context=".MainActivity"
+android:background="#f2f6f4">
+<TextView
+android:id="@+id/textView"
+android:layout_width="wrap_content"
+
+android:layout_height="wrap_content"
+android:layout_above="@id/button"
+android:layout_centerHorizontal="true"
+android:layout_marginBottom="28dp"
+android:fontFamily="sans-serif-condensed"
+android:textColor="@color/black"
+android:text="Date"
+android:textSize="30dp" />
+<Button
+android:id="@+id/button"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Set Date"
+android:layout_centerVertical="true"
+android:layout_centerHorizontal="true"/>
+</RelativeLayout>
+
+
+datefragment.java
+package com.example.app8;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.os.Bundle;
+import java.util.Calendar;
+public class datefragment extends DialogFragment
+{
+@Override
+public Dialog onCreateDialog(Bundle savedInstanceState) {
+Calendar c = Calendar.getInstance();
+int year = c.get(Calendar.YEAR);
+int month = c.get(Calendar.MONTH);
+int day = c.get(Calendar.DAY_OF_MONTH);
+return new DatePickerDialog(getActivity(),
+(DatePickerDialog.OnDateSetListener)getActivity(), year, month, day); }
+}
+
+
+
+
+MainActivity.java
+package com.example.app8;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import java.text.DateFormat;
+import java.util.Calendar;
+public class MainActivity extends Activity implements DatePickerDialog.OnDateSetListener {
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+Button button = (Button) findViewById(R.id.button);
+button.setOnClickListener(new View.OnClickListener()
+{
+@Override
+public void onClick(View v) {
+
+DialogFragment datePicker = new datefragment();
+datePicker.show(getFragmentManager(), "date picker");
+}
+});
+}
+public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+Calendar c = Calendar.getInstance();
+c.set(Calendar.YEAR,year);
+c.set(Calendar.MONTH,month);
+c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+String currentDateString =
+DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime()); TextView textView
+= (TextView) findViewById(R.id.textView);
+textView.setText(currentDateString);
+}
+}
